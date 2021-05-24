@@ -39,11 +39,11 @@ public class SessionsController {
         sessionRepository.deleteById(id);
     }
     // Update endpoint (put id)
-    @RequestMapping(value="{id}", method=RequestMethod.PUT)
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public Session update(@PathVariable Long id, @RequestBody Session session) {
         // PUT expects all attributes to be passed in
         // Add validation that all attributes are passed in, otherwise return 400(bad payload)
-        Session existingSession = sessionRepository.getById(id);
+        Session existingSession = sessionRepository.getOne(id);
         BeanUtils.copyProperties(session, existingSession, "session_id");
         return sessionRepository.saveAndFlush(existingSession);
     }
